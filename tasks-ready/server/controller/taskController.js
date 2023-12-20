@@ -7,9 +7,14 @@ const postTask = async (req, res) => {
   res.json({ passed: true });
 };
 const getTask = async (req, res) => {
-  const Tasks = await Task.find();
-  res.status(201).send(Tasks).json({ passed: true });
-  res.status(400).json({ passed: false });
+  try {
+    const Tasks = await Task.find();
+    res.status(200).json({ passed: true, tasks: Tasks });
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+    res.status(500).json({ passed: false, error: "Internal Server Error" });
+  }
 };
+
 
 module.exports = { postTask, getTask };
