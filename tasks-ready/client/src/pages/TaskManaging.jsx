@@ -22,22 +22,6 @@ const TaskManaging = () => {
   }, [tasks]);
 
   const handleComplete = async (taskId, currentStatus) => {
-    // try {
-    //   const newStatus = !currentStatus;
-    //   await axios.put(`http://localhost:5000/api/updatetask/${taskId}`, {
-    //     status: newStatus,
-    //   });
-    //   setTasks((prevTasks) =>
-    //     prevTasks.map((task) =>
-    //       task._id === taskId ? { ...task, status: newStatus } : task
-    //     )
-    //   );
-    // } catch (error) {
-    //   console.error("Error updating task status:", error);
-    // }
-
-    //New code
-
     try {
       const status = !currentStatus;
       axios
