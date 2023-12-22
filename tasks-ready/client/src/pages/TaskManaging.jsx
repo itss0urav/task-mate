@@ -5,6 +5,8 @@ const TaskManaging = () => {
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState(null);
   const [editedName, setEditedName] = useState("");
+  const [editedtype, setEditedType] = useState("");
+  const [editedAssignee, setEditedAssignee] = useState("");
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -39,9 +41,8 @@ const TaskManaging = () => {
     try {
       const status = !currentStatus;
       axios
-        .put(`http://localhost:5000/api/updatetask/${taskId}`, {
-          status,
-        })
+        .put(`http://localhost:5000/api/updatetask/${taskId}`, { status })
+
         .then((res) => {
           console.log("first");
         })
@@ -63,19 +64,24 @@ const TaskManaging = () => {
   const handleEdit = (task) => {
     setEditTask(task);
     setEditedName(task.name);
+    setEditedType(task.type);
+    setEditedAssignee(task.assignee);
   };
 
   const handleSaveEdit = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/updatetask/${editTask._id}`, {
-        name: editedName,
-      });
-      setEditTask(null);
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task._id === editTask._id ? { ...task, name: editedName } : task
-        )
+      const name = editedName;
+      const type = editedtype;
+      const assignee = editedAssignee;
+      await axios.put(
+        `http://localhost:5000/api/updatetaskfields/${editTask._id}`,
+        {
+          name,
+          type,
+          assignee,
+        }
       );
+      setEditTask(null);
     } catch (error) {
       console.error("Error updating task:", error);
     }
@@ -102,6 +108,16 @@ const TaskManaging = () => {
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
                   />
+                  <input
+                    type="text"
+                    value={editedtype}
+                    onChange={(e) => setEditedType(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    value={editedAssignee}
+                    onChange={(e) => setEditedAssignee(e.target.value)}
+                  />
                   <button onClick={handleSaveEdit}>Save</button>
                   <button onClick={handleCancelEdit}>Cancel</button>
                 </>
@@ -124,7 +140,7 @@ const TaskManaging = () => {
                 } text-white font-bold py-1 px-2 rounded`}
                 onClick={() => handleComplete(task._id, task.status)}
               >
-                {task.status ? "Pending" : "Complete"}
+                {task.status ? " Completed" : "Pending"}
               </button>
               <button
                 className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"

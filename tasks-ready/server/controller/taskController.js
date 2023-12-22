@@ -16,24 +16,26 @@ const getTask = async (req, res) => {
   }
 };
 
+const updateTaskFields = async (req, res) => {
+  try {
+    const { name, type, assignee } = req.body;
+    const task = await Task.findByIdAndUpdate(req.params.id, {
+      name: name,
+      type: type,
+      assignee: assignee,
+    });
+    console.log(task);
+    if (!task) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+    // Add your update logic here
+    res.json({ passed: true });
+  } catch (error) {
+    console.error("Error updating tasks:", error);
+    res.status(500).json({ passed: false, error: "Internal Server Error" });
+  }
+};
 const updateTask = async (req, res) => {
-  // try {
-  //   let task = await Task.findById(req.params.id);
-  //   task = req.body.status;
-  //   await Task.findByIdAndUpdate(req.params.id, task);
-  //   console.log(task);
-  //   if (!task) {
-  //     return res.status(404).json({ error: "Task not found" });
-  //   }
-  //   // Add your update logic here
-  //   res.json({ passed: true });
-  // } catch (error) {
-  //   console.error("Error updating tasks:", error);
-  //   res.status(500).json({ passed: false, error: "Internal Server Error" });
-  // }
-
-  // New code below
-
   try {
     let id = req.params.id;
     const { status } = req.body;
@@ -57,4 +59,4 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { postTask, getTask, updateTask, deleteTask };
+module.exports = { postTask, getTask, updateTask, deleteTask ,updateTaskFields};
