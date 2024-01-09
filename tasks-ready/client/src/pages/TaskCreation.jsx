@@ -36,7 +36,7 @@ const TaskCreation = () => {
     <div className="">
       <Navbar />
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-4xl mb-4">Task Mate</h1>
+        <h1 className="text-4xl my-4">Task Mate</h1>
         {successMessage && (
           <div
             className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4"
@@ -56,6 +56,7 @@ const TaskCreation = () => {
                 Task Name
               </label>
               <input
+                required
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="task-name"
                 type="text"
@@ -72,6 +73,7 @@ const TaskCreation = () => {
                 Task Type
               </label>
               <input
+                required
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                 id="task-type"
                 type="text"
@@ -90,6 +92,7 @@ const TaskCreation = () => {
                 Assignee Name
               </label>
               <input
+                required
                 className="appearance-none  block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="assignee-name"
                 type="text"

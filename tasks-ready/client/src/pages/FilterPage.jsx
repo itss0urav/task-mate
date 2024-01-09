@@ -93,19 +93,19 @@ const FilterPage = () => {
       <div className=" container mx-auto mt-8">
         <h2 className=" text-2xl font-bold mb-4">Task List</h2>
 
-        <div>
+        <div className="rounded-sm text-center bg-gray-200">
           <button
             onClick={() => toggleFilter("pending")}
-            className={`text-red-600 mr-2 ${
-              activeFilter === "pending" ? "font-bold" : ""
+            className={`bg-gray-600 px-1 rounded-sm text-white mr-2 ${
+              activeFilter === "pending" ? "font-bold text-red-300" : ""
             }`}
           >
             Show Pending
           </button>
           <button
             onClick={() => toggleFilter("completed")}
-            className={`text-green-600 mr-2 ${
-              activeFilter === "completed" ? "font-bold" : ""
+            className={`bg-gray-600 px-1 rounded-sm text-white mr-2 ${
+              activeFilter === "completed" ? "font-bold text-green-300" : ""
             }`}
           >
             Show Completed
