@@ -123,18 +123,21 @@ const FilterPage = () => {
                   <>
                     <input
                     className="border rounded-sm m-1 text-center"
+                    placeholder="Describe Task"
                       type="text"
                       value={editedName}
                       onChange={(e) => setEditedName(e.target.value)}
                     />
                     <input
                     className="border rounded-sm m-1 text-center"
+                    placeholder="Task Type"
                       type="text"
                       value={editedType}
                       onChange={(e) => setEditedType(e.target.value)}
                     />
                     <input
                     className="border rounded-sm m-1 text-center"
+                    placeholder="Task Assignee"
                       type="text"
                       value={editedAssignee}
                       onChange={(e) => setEditedAssignee(e.target.value)}
