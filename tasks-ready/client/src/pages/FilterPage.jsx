@@ -122,28 +122,41 @@ const FilterPage = () => {
                 {editTask && editTask._id === task._id ? (
                   <>
                     <input
-                    className="border rounded-sm m-1 text-center"
-                    placeholder="Describe Task"
+                      required
+                      className="border rounded-sm m-1 text-center"
+                      placeholder="Describe Task"
                       type="text"
                       value={editedName}
                       onChange={(e) => setEditedName(e.target.value)}
                     />
                     <input
-                    className="border rounded-sm m-1 text-center"
-                    placeholder="Task Type"
+                      required
+                      className="border rounded-sm m-1 text-center"
+                      placeholder="Task Type"
                       type="text"
                       value={editedType}
                       onChange={(e) => setEditedType(e.target.value)}
                     />
                     <input
-                    className="border rounded-sm m-1 text-center"
-                    placeholder="Task Assignee"
+                      required
+                      className="border rounded-sm m-1 text-center"
+                      placeholder="Task Assignee"
                       type="text"
                       value={editedAssignee}
                       onChange={(e) => setEditedAssignee(e.target.value)}
                     />
-                    <button onClick={handleSaveEdit}>Save</button>
-                    <button onClick={handleCancelEdit}>Cancel</button>
+                    <button
+                      className="m-1 bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+                      onClick={handleSaveEdit}
+                    >
+                      Save
+                    </button>
+                    <button
+                      className="m-1 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                      onClick={handleCancelEdit}
+                    >
+                      Cancel
+                    </button>
                   </>
                 ) : (
                   <>
@@ -161,7 +174,7 @@ const FilterPage = () => {
                   </>
                 )}
               </div>
-              <div>
+              <div className="flex">
                 <button
                   className={`mr-2 ${
                     task.status
