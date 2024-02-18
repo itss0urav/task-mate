@@ -7,11 +7,12 @@ const {
   deleteTask,
   updateTaskFields,
 } = require("../controller/taskController");
+const verifyToken = require("../middleware/authMiddleware");
 
-router.get("/api/gettask", getTask);
-router.post("/api/posttask", postTask);
-router.put("/api/updatetask/:id", updateTask);
-router.put("/api/updatetaskfields/:id", updateTaskFields);
-router.delete("/api/deletetask/:id", deleteTask);
+router.get("/api/gettask", verifyToken, getTask);
+router.post("/api/posttask", verifyToken, postTask);
+router.put("/api/updatetask/:id", verifyToken, updateTask);
+router.put("/api/updatetaskfields/:id", verifyToken, updateTaskFields);
+router.delete("/api/deletetask/:id", verifyToken, deleteTask);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../config/axios";
 import Navbar from "../components/Navbar";
 
 const FilterPage = () => {
@@ -14,7 +14,7 @@ const FilterPage = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/gettask");
+        const response = await axios.get("/gettask");
         setTasks(response.data.tasks);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -28,7 +28,7 @@ const FilterPage = () => {
     try {
       const status = !currentStatus;
       axios
-        .put(`http://localhost:5000/api/updatetask/${taskId}`, { status })
+        .put(`/updatetask/${taskId}`, { status })
         .then((res) => {
           console.log("Task updated successfully");
         })
@@ -40,7 +40,7 @@ const FilterPage = () => {
 
   const handleDelete = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/deletetask/${taskId}`);
+      await axios.delete(`/deletetask/${taskId}`);
       setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -60,7 +60,7 @@ const FilterPage = () => {
       const type = editedType;
       const assignee = editedAssignee;
       await axios.put(
-        `http://localhost:5000/api/updatetaskfields/${editTask._id}`,
+        `/updatetaskfields/${editTask._id}`,
         {
           name,
           type,

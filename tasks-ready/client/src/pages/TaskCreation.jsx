@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../config/axios";
 import Navbar from "../components/Navbar";
 
 const TaskCreation = () => {
@@ -20,7 +20,7 @@ const TaskCreation = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/posttask",
+        "/posttask",
         task
       );
       if (response.data.passed) {

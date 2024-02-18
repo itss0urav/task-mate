@@ -12,7 +12,7 @@ const TaskManaging = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/gettask");
+        const response = await axios.get("/gettask");
         setTasks(response.data.tasks);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -25,7 +25,7 @@ const TaskManaging = () => {
   const handleComplete = async (taskId, currentStatus) => {
     try {
       const status = !currentStatus;
-      await axios.put(`http://localhost:5000/api/updatetask/${taskId}`, { status });
+      await axios.put(`/updatetask/${taskId}`, { status });
     } catch (error) {
       console.error("Failed Updating", error);
     }
@@ -33,7 +33,7 @@ const TaskManaging = () => {
 
   const handleDelete = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/deletetask/${taskId}`);
+      await axios.delete(`/deletetask/${taskId}`);
       setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -49,7 +49,7 @@ const TaskManaging = () => {
 
   const handleSaveEdit = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/updatetaskfields/${editTask._id}`, {
+      await axios.put(`/updatetaskfields/${editTask._id}`, {
         name: editedName,
         type: editedType,
         assignee: editedAssignee,

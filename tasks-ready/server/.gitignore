@@ -2,13 +2,10 @@
 
 # dependencies
 /node_modules
-
-/src/config/ProtectedUrls
-/src/config/ProtectedUrls.js
-
-
 /.pnp
 .pnp.js
+/public/
+/public/files
 
 # testing
 /coverage
@@ -17,6 +14,8 @@
 /build
 
 # misc
+/env
+/.env
 .DS_Store
 .env.local
 .env.development.local
