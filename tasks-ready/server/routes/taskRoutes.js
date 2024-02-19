@@ -8,31 +8,31 @@ const {
   deleteTask,
   updateTaskFields,
 } = require("../controller/taskController");
-// const verifyToken = require("../middleware/authMiddleware"); // Import the middleware correctly
+const verifyToken = require("../middleware/authMiddleware"); // Import the middleware correctly
 
 router.get(
   "/api/gettask",
-  // verifyToken,
+  verifyToken,
   getTask
 );
 router.post(
   "/api/posttask",
-  // verifyToken,
+  verifyToken,
   postTask
 );
 router.put(
   "/api/updatetask/:id",
-  // verifyToken,
+  verifyToken,
   updateTask
 );
 router.put(
   "/api/updatetaskfields/:id",
-  // verifyToken,
+  verifyToken,
   updateTaskFields
 );
 router.delete(
   "/api/deletetask/:id",
-  // verifyToken,
+  verifyToken,
   deleteTask
 );
 

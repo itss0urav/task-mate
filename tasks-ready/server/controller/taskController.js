@@ -2,9 +2,9 @@ const Task = require("../models/taskModel");
 
 const postTask = async (req, res) => {
   try {
-    const { name, type, assignee, status } = req.body;
+    const { name, type, assignees, status } = req.body;
     console.log("Received data for creating task:", req.body);
-    await Task.create({ name, type, assignee, status });
+    await Task.create({ name, type, assignees, status });
     console.log("Task created successfully");
     res.json({ passed: true });
   } catch (error) {
@@ -28,7 +28,11 @@ const updateTaskFields = async (req, res) => {
   try {
     const { name, type, assignee } = req.body;
     console.log("Received data for updating task fields:", req.body);
-    const task = await Task.findByIdAndUpdate(req.params.id, { name, type, assignee });
+    const task = await Task.findByIdAndUpdate(req.params.id, {
+      name,
+      type,
+      assignee,
+    });
     console.log("Updated task:", task);
     if (!task) {
       return res.status(404).json({ error: "Task not found" });
@@ -66,4 +70,10 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { postTask, getTask, updateTask, deleteTask, updateTaskFields };
+module.exports = {
+  postTask,
+  getTask,
+  updateTask,
+  deleteTask,
+  updateTaskFields,
+};
