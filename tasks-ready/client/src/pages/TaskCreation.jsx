@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "../config/axios";
 import Navbar from "../components/Navbar";
+import { toast } from "react-hot-toast";
 
 const TaskCreation = () => {
   const [task, setTask] = useState({
@@ -19,15 +20,26 @@ const TaskCreation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "/posttask",
-        task
-      );
+      const response = await axios.post("/posttask", task);
       if (response.data.passed) {
         setSuccessMessage("Task Created");
+        toast.success("Task Created!", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
         // You can reset the form or perform any other actions after successful submission
       }
     } catch (error) {
+      toast.error("Failed to add task", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
       console.error("Error creating task:", error);
     }
   };

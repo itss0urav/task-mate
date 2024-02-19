@@ -2,6 +2,8 @@ import axios from "../config/axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import v3 from "../assets/videoBg1.mp4";
+
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -34,21 +36,28 @@ const Signup = () => {
   };
 
   return (
-    <div className="">
+    <div className="flex flex-col items-center justify-center">
       <div className="text-xl text-center my-4">Signup</div>
       <form
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        className="mx-auto p-4 rounded-md w-[20rem]  relative"
         onSubmit={handleSignup}
       >
+        <video
+          autoPlay
+          muted
+          loop
+          src={v3}
+          className="rounded-md absolute inset-0 w-full h-full object-cover z-[-1]"
+        ></video>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-white text-sm font-bold mb-2"
             htmlFor="username"
           >
             Username
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="text"
             placeholder="Username"
@@ -57,13 +66,13 @@ const Signup = () => {
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-white text-sm font-bold mb-2"
             htmlFor="email"
           >
             Email
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             id="email"
             type="email"
             placeholder="Email"
@@ -72,13 +81,13 @@ const Signup = () => {
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-white text-sm font-bold mb-2"
             htmlFor="password"
           >
             Password
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
             placeholder="Password"
@@ -87,13 +96,13 @@ const Signup = () => {
         </div>
         <div className="mb-6">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-white text-sm font-bold mb-2"
             htmlFor="confirm-password"
           >
             Confirm Password
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             id="confirm-password"
             type="password"
             placeholder="Confirm Password"
@@ -109,7 +118,7 @@ const Signup = () => {
           </button>
           <Link
             to="/login"
-            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            className="inline-block align-baseline font-bold text-sm text-cyan-200 hover:text-cyan-400"
           >
             Have an account? Login
           </Link>

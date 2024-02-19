@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import TaskManaging from "./pages/TaskManaging";
 import TaskCreation from "./pages/TaskCreation";
 import FilterPage from "./pages/FilterPage";
+import Introduction from "./pages/Introduction";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Introduction />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/TaskCreation" element={<TaskCreation />} />

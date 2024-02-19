@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../config/axios";
 import Navbar from "../components/Navbar";
 
 const TaskManaging = () => {
@@ -12,7 +12,9 @@ const TaskManaging = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
+        console.log("Fetching tasks...");
         const response = await axios.get("/gettask");
+        console.log("Tasks fetched:", response.data.tasks);
         setTasks(response.data.tasks);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -20,12 +22,19 @@ const TaskManaging = () => {
     };
 
     fetchTasks();
-  }, [tasks]);
+  }, []);
 
   const handleComplete = async (taskId, currentStatus) => {
     try {
       const status = !currentStatus;
+      console.log("Updating task status...");
       await axios.put(`/updatetask/${taskId}`, { status });
+      console.log("Task status updated.");
+      setTasks(prevTasks =>
+        prevTasks.map(task =>
+          task._id === taskId ? { ...task, status } : task
+        )
+      );
     } catch (error) {
       console.error("Failed Updating", error);
     }
@@ -33,14 +42,17 @@ const TaskManaging = () => {
 
   const handleDelete = async (taskId) => {
     try {
+      console.log("Deleting task...");
       await axios.delete(`/deletetask/${taskId}`);
-      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+      console.log("Task deleted:", taskId);
+      setTasks(prevTasks => prevTasks.filter(task => task._id !== taskId));
     } catch (error) {
       console.error("Error deleting task:", error);
     }
   };
 
   const handleEdit = (task) => {
+    console.log("Editing task:", task);
     setEditTask(task);
     setEditedName(task.name);
     setEditedType(task.type);
@@ -49,18 +61,23 @@ const TaskManaging = () => {
 
   const handleSaveEdit = async () => {
     try {
+      console.log("Saving edited task...");
       await axios.put(`/updatetaskfields/${editTask._id}`, {
         name: editedName,
         type: editedType,
         assignee: editedAssignee,
       });
+      console.log("Edited task saved.");
       setEditTask(null);
+      // Fetch tasks again after saving edit
+      fetchTasks();
     } catch (error) {
       console.error("Error updating task:", error);
     }
   };
 
   const handleCancelEdit = () => {
+    console.log("Canceling edit task...");
     setEditTask(null);
   };
 

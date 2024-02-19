@@ -1,11 +1,11 @@
-// const cookieParser = require("cookie-parser");
+// middleware/authMiddleware.js
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     const token = authHeader.split(" ")[1];
-    // console.log("Token to verify:", token);
+    console.log("Token to verify:", token);
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
       if (err) {
         console.log("Error verifying token:", err);
