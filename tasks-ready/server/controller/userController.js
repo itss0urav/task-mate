@@ -44,5 +44,22 @@ const getUser = async (req, res) => {
     res.status(500).json({ passed: false, message: "Login Failed" });
   }
 };
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    if (!users) {
+      return res
+        .status(400)
+        .json({ passed: false, message: "No users  found" });
+    }
 
-module.exports = { postUser, getUser };
+    res
+      .status(200)
+      .json({ passed: true, message: "Users found", users });
+  } catch (error) {
+    console.error(`Error occurred : ${error}`);
+    res.status(500).json({ passed: false, message: "Failed" });
+  }
+};
+
+module.exports = { postUser, getUser,getUsers };
