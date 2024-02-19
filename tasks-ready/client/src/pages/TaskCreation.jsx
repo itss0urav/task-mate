@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../config/axios";
 import Navbar from "../components/Navbar";
 import { toast } from "react-hot-toast";
-
+import { CiCircleRemove } from "react-icons/ci";
 const TaskCreation = () => {
   const [users, setUsers] = useState([]);
   const [task, setTask] = useState({
@@ -138,16 +138,15 @@ const TaskCreation = () => {
             {task.assignees.map((assignee) => (
               <div
                 key={assignee}
-                className="inline-flex items-center bg-blue-100 text-blue-800 text-sm rounded mt-2 mr-2"
+                className="m-3 inline-flex items-center bg-blue-100 text-blue-800 text-sm rounded mt-2 mr-2"
               >
                 <span className="ml-2 mr-1">{assignee}</span>
-                <button
+
+                <CiCircleRemove
                   type="button"
                   onClick={() => handleRemoveAssignee(assignee)}
-                  className="inline-block bg-blue-500 hover:bg-blue-600 text-white rounded-full h-6 w-6 text-xs items-center justify-center"
-                >
-                  x
-                </button>
+                  className="m-2 inline-block bg-blue-500 hover:bg-blue-600 text-white rounded-full h-6 w-6 text-xs items-center justify-center"
+                />
               </div>
             ))}
           </div>
