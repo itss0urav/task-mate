@@ -4,10 +4,13 @@ import Navbar from "../components/Navbar";
 import { toast } from "react-hot-toast";
 import { CiCircleRemove } from "react-icons/ci";
 const TaskCreation = () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
   const [users, setUsers] = useState([]);
   const [task, setTask] = useState({
     name: "",
     type: "",
+    assignor: user.username,
     assignees: [],
     status: false,
   });

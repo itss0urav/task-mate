@@ -3,6 +3,8 @@ import axios from "../config/axios";
 import Navbar from "../components/Navbar";
 
 const TaskManaging = () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState(null);
   const [editedName, setEditedName] = useState("");
@@ -10,19 +12,30 @@ const TaskManaging = () => {
   const [editedAssignee, setEditedAssignee] = useState("");
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        console.log("Fetching tasks...");
-        const response = await axios.get("/gettask");
-        console.log("Tasks fetched:", response.data.tasks);
-        setTasks(response.data.tasks);
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-      }
-    };
-
     fetchTasks();
+    const refreshInterval = setInterval(fetchTasks, 2000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(refreshInterval);
   }, []);
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get("/gettask");
+      console.log("Response data:", response.data); // Debugging
+      if (response.data.passed === true && Array.isArray(response.data.tasks)) {
+        const filteredTasks = response.data.tasks.filter(
+          (task) =>
+            task.assignees.includes(user.username) ||
+            task.assignor === user.username
+        );
+        setTasks(filteredTasks);
+      } else {
+        console.error("Invalid response data structure:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
 
   const handleComplete = async (taskId, currentStatus) => {
     try {
@@ -30,8 +43,8 @@ const TaskManaging = () => {
       console.log("Updating task status...");
       await axios.put(`/updatetask/${taskId}`, { status });
       console.log("Task status updated.");
-      setTasks(prevTasks =>
-        prevTasks.map(task =>
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
           task._id === taskId ? { ...task, status } : task
         )
       );
@@ -45,7 +58,7 @@ const TaskManaging = () => {
       console.log("Deleting task...");
       await axios.delete(`/deletetask/${taskId}`);
       console.log("Task deleted:", taskId);
-      setTasks(prevTasks => prevTasks.filter(task => task._id !== taskId));
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
     } catch (error) {
       console.error("Error deleting task:", error);
     }
@@ -88,11 +101,17 @@ const TaskManaging = () => {
         <h2 className="text-2xl font-bold mb-4">Task List</h2>
         <ul>
           {tasks.map((task) => (
-            <li key={task._id} className="flex justify-between items-center border-b py-2">
+            <li
+              key={task._id}
+              className="flex justify-between items-center border-b py-2"
+            >
               <div>
                 {editTask && editTask._id === task._id ? (
                   <>
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="editedName">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="editedName"
+                    >
                       Task Name
                     </label>
                     <input
@@ -102,7 +121,10 @@ const TaskManaging = () => {
                       onChange={(e) => setEditedName(e.target.value)}
                       className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
                     />
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="editedType">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="editedType"
+                    >
                       Task Type
                     </label>
                     <input
@@ -112,7 +134,10 @@ const TaskManaging = () => {
                       onChange={(e) => setEditedType(e.target.value)}
                       className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
                     />
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="editedAssignee">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="editedAssignee"
+                    >
                       Assignee Name
                     </label>
                     <input
@@ -139,9 +164,11 @@ const TaskManaging = () => {
                   </>
                 ) : (
                   <>
-                    <p className={task.status ? "line-through" : ""}>{task.name}</p>
+                    <p className={task.status ? "line-through" : ""}>
+                      {task.name}
+                    </p>
                     <p>Type: {task.type}</p>
-                    <p>Assignee: {task.assignee}</p>
+                    <p>Assignor: {task.assignor}</p>
                   </>
                 )}
               </div>
@@ -156,12 +183,14 @@ const TaskManaging = () => {
                 >
                   {task.status ? " Completed" : "Pending"}
                 </button>
-                <button
-                  className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                  onClick={() => handleEdit(task)}
-                >
-                  Edit
-                </button>
+                {task.assignor === user.username && (
+                  <button
+                    className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                    onClick={() => handleEdit(task)}
+                  >
+                    Edit
+                  </button>
+                )}
                 <button
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                   onClick={() => handleDelete(task._id)}

@@ -3,6 +3,8 @@ import axios from "../config/axios";
 import Navbar from "../components/Navbar";
 
 const FilterPage = () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState(null);
   const [editedName, setEditedName] = useState("");
@@ -12,27 +14,35 @@ const FilterPage = () => {
   const [activeFilter, setActiveFilter] = useState(null);
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await axios.get("/gettask");
-        setTasks(response.data.tasks);
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-      }
-    };
-
     fetchTasks();
-  }, [tasks]);
+    const refreshInterval = setInterval(fetchTasks, 2000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(refreshInterval);
+  }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get("/gettask");
+      console.log("Response data:", response.data); // Debugging
+      if (response.data.passed === true && Array.isArray(response.data.tasks)) {
+        const filteredTasks = response.data.tasks.filter((task) =>
+          task.assignees.includes(user.username)
+        );
+        setTasks(filteredTasks);
+      } else {
+        console.error("Invalid response data structure:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
 
   const handleComplete = async (taskId, currentStatus) => {
     try {
       const status = !currentStatus;
-      axios
-        .put(`/updatetask/${taskId}`, { status })
-        .then((res) => {
-          console.log("Task updated successfully");
-        })
-        .catch((error) => console.error("Failed updating task:", error));
+      await axios.put(`/updatetask/${taskId}`, { status });
+      console.log("Task updated successfully");
     } catch (error) {
       console.error("Failed updating task:", error);
     }
@@ -59,14 +69,11 @@ const FilterPage = () => {
       const name = editedName;
       const type = editedType;
       const assignee = editedAssignee;
-      await axios.put(
-        `/updatetaskfields/${editTask._id}`,
-        {
-          name,
-          type,
-          assignee,
-        }
-      );
+      await axios.put(`/updatetaskfields/${editTask._id}`, {
+        name,
+        type,
+        assignee,
+      });
       setEditTask(null);
     } catch (error) {
       console.error("Error updating task:", error);

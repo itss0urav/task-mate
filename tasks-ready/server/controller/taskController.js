@@ -2,9 +2,9 @@ const Task = require("../models/taskModel");
 
 const postTask = async (req, res) => {
   try {
-    const { name, type, assignees, status } = req.body;
+    const { name, type, assignor, assignees, status } = req.body;
     console.log("Received data for creating task:", req.body);
-    await Task.create({ name, type, assignees, status });
+    await Task.create({ name, type, assignor, assignees, status });
     console.log("Task created successfully");
     res.json({ passed: true });
   } catch (error) {
