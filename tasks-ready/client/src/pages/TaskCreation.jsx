@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "../config/axios";
-import Navbar from "../components/Navbar";
 import { toast } from "react-hot-toast";
 import { CiCircleRemove } from "react-icons/ci";
 const TaskCreation = () => {
@@ -74,21 +73,20 @@ const TaskCreation = () => {
 
   return (
     <div className="">
-      <Navbar />
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-4xl my-4">Task Mate</h1>
+        <h1 className="text-2xl my-4 text-white">Assign a task</h1>
         <form onSubmit={handleSubmit} className="w-full max-w-md">
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
                 htmlFor="task-name"
               >
                 Task Name
               </label>
               <input
                 required
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="task-name"
                 type="text"
                 name="name"
@@ -98,14 +96,14 @@ const TaskCreation = () => {
             </div>
             <div className="w-full md:w-1/2 px-3">
               <label
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
                 htmlFor="task-type"
               >
                 Task Type
               </label>
               <input
                 required
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                 id="task-type"
                 type="text"
                 name="type"
@@ -116,14 +114,14 @@ const TaskCreation = () => {
           </div>
           <div className="w-full px-3">
             <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
               htmlFor="assignee-name"
             >
               Assignee Names
             </label>
             <select
               required
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-gray-200 text-black border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="assignee-name"
               name="assignees"
               onChange={handleChange}
@@ -153,7 +151,7 @@ const TaskCreation = () => {
               </div>
             ))}
           </div>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button className="my-4 bg-green-500 hover:bg-green-700 text-black hover:text-white font-bold py-2 px-4 rounded">
             Submit
           </button>
         </form>

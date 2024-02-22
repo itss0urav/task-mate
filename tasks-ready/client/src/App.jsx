@@ -8,14 +8,17 @@ import TaskManaging from "./pages/TaskManaging";
 import TaskCreation from "./pages/TaskCreation";
 import FilterPage from "./pages/FilterPage";
 import Introduction from "./pages/Introduction";
+import Navbar from "./components/Navbar";
 
 function App() {
+
   return (
     <div>
       <div>
         <Toaster />
       </div>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Introduction />} />

@@ -34,7 +34,14 @@ const Login = () => {
 
   return (
     <div className="mt-8 flex flex-col items-center justify-center">
-      <div className="text-xl text-center my-4">Login</div>
+        <video
+          autoPlay
+          muted
+          loop
+          src={v3}
+          className=" blur-sm  absolute inset-0 w-full h-full object-cover z-[-1]"
+        ></video>
+      <div className="text-xl mt-[10rem]  text-white text-center my-4">Login</div>
       <form className="mx-auto p-4 rounded-md  relative" onSubmit={handleLogin}>
         <video
           autoPlay

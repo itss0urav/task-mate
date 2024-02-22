@@ -1,7 +1,11 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import videoBg from "../assets/videoBgGreen.mp4";
 
 const Navbar = () => {
+  const location = useLocation();
+  const path = location.pathname;
+  console.log(path);
   let user = JSON.parse(sessionStorage.getItem("user"));
   const navigate = useNavigate();
 
@@ -11,26 +15,38 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  if (path === "/Login" || path === "/signup" || "/") {
+    return null; 
+  }
   return (
-    <nav className="bg-white shadow dark:bg-gray-800">
-      <div className="container px-6 py-4 mx-auto">
+    <nav className="">
+      <video
+        src={videoBg}
+        muted
+        autoPlay
+        loop
+        className=" backdrop-blur-lg  absolute inset-0 w-full h-full object-cover z-[-1] "
+      />
+      <div className=" m-2 bg-black rounded-md bg-opacity-30 container px-6 py-4 mx-auto">
         <div className="md:flex md:items-center md:justify-between">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-semibold text-gray-700 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
-              <Link to="/home">TaskMate</Link>
+            <div className="text-2xl font-semibold text-white">
+              <Link className="hover:text-green-700" to="/home">
+                TaskMate
+              </Link>
             </div>
           </div>
 
           <div className="flex-1 md:flex md:items-center md:justify-between">
-            <div className="flex flex-col -mx-4 md:flex-row md:items-center md:mx-8">
+            <div className=" flex flex-col -mx-4 md:flex-row md:items-center md:mx-8">
               <Link
-                className="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 dark:hover:text-gray-400 dark:hover:bg-gray-600 hover:bg-gray-200 md:mt-0"
+                className="hover:text-green-700 px-2 py-1 mx-2 mt-2 text-sm font-medium text-white md:mt-0"
                 to="/FilterPage"
               >
                 View Tasks
               </Link>
               <Link
-                className="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 rounded-md dark:text-gray-200 dark:hover:text-gray-400 dark:hover:bg-gray-600 hover:bg-gray-200 md:mt-0"
+                className="hover:text-green-700 px-2 py-1 mx-2 mt-2 text-sm font-medium text-white md:mt-0"
                 to="/TaskManaging"
               >
                 Manage

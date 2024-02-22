@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "../config/axios";
-import Navbar from "../components/Navbar";
 
 const TaskManaging = () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
@@ -95,15 +94,14 @@ const TaskManaging = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navbar />
+    <div className="min-h-screen ">
       <div className="container mx-auto mt-8">
-        <h2 className="text-2xl font-bold mb-4">Task List</h2>
+        <h2 className="text-2xl text-white font-bold mb-4">Task List</h2>
         <ul>
           {tasks.map((task) => (
             <li
               key={task._id}
-              className="flex justify-between items-center border-b py-2"
+              className="bg-black bg-opacity-40 backdrop-blur-md rounded-md p-2 flex justify-between items-center border-b py-2"
             >
               <div>
                 {editTask && editTask._id === task._id ? (
@@ -164,11 +162,17 @@ const TaskManaging = () => {
                   </>
                 ) : (
                   <>
-                    <p className={task.status ? "line-through" : ""}>
+                    <p
+                      className={
+                        task.status
+                          ? "line-through text-red-400"
+                          : "text-green-400"
+                      }
+                    >
                       {task.name}
                     </p>
-                    <p>Type: {task.type}</p>
-                    <p>Assignor: {task.assignor}</p>
+                    <p className="text-white">Type: {task.type}</p>
+                    <p className="text-white">Assignor: {task.assignor}</p>
                   </>
                 )}
               </div>

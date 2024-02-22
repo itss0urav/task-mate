@@ -26,12 +26,11 @@ const getTask = async (req, res) => {
 
 const updateTaskFields = async (req, res) => {
   try {
-    const { name, type, assignee } = req.body;
+    const { name, type } = req.body;
     console.log("Received data for updating task fields:", req.body);
     const task = await Task.findByIdAndUpdate(req.params.id, {
       name,
       type,
-      assignee,
     });
     console.log("Updated task:", task);
     if (!task) {
