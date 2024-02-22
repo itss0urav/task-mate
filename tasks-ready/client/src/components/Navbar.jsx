@@ -3,10 +3,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import videoBg from "../assets/videoBgGreen.mp4";
 
 const Navbar = () => {
+  
   const location = useLocation();
-  const path = location.pathname;
+  const path = location.pathname.toLowerCase();
   console.log(path);
+
   let user = JSON.parse(sessionStorage.getItem("user"));
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -15,8 +18,8 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  if (path === "/Login" || path === "/signup" || "/") {
-    return null; 
+  if (path === "/" || path === "/login" || path === "/signup") {
+    return null;
   }
   return (
     <nav className="">

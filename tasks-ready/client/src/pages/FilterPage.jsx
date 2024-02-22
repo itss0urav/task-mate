@@ -96,7 +96,7 @@ const FilterPage = () => {
       <div className=" container mx-auto mt-8">
         <h2 className=" text-2xl font-bold mb-4">Task List</h2>
 
-        <div className="rounded-sm text-center bg-gray-200">
+        <div className="rounded-sm text-center  my-2">
           <button
             onClick={() => toggleFilter("pending")}
             className={`bg-gray-600 px-1 rounded-sm text-white mr-2 ${
