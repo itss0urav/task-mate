@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import videoBg from "../assets/videoBgGreen.mp4";
 
 const Navbar = () => {
-  
   const location = useLocation();
   const path = location.pathname.toLowerCase();
   console.log(path);

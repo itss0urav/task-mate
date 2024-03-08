@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import "./App.css";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
@@ -11,6 +11,12 @@ import Introduction from "./pages/Introduction";
 import Navbar from "./components/Navbar";
 
 function App() {
+  console.log(
+    " Hi there :) Find me Here \n GitHub: 👉https://github.com/itss0urav",
+    " \n LinkedIn: 👉https://www.linkedin.com/in/itssourav/",
+    " \n Instagram: 👉https://www.instagram.com/itssourav.dev/",
+    " \n Medium: 👉https://itss0urav.medium.com/"
+  );
 
   return (
     <div>

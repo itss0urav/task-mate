@@ -38,13 +38,15 @@ const Signup = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <video
-          autoPlay
-          muted
-          loop
-          src={v3}
-          className=" blur-sm  absolute inset-0 w-full h-full object-cover z-[-1]"
-        ></video>
-      <div className="text-xl mt-[10rem] text-white text-center my-4">Signup</div>
+        autoPlay
+        muted
+        loop
+        src={v3}
+        className=" blur-sm  absolute inset-0 w-full h-full object-cover z-[-1]"
+      ></video>
+      <div className="text-xl mt-[10rem] text-white text-center my-4">
+        Signup
+      </div>
       <form
         className="mx-auto p-4 rounded-md w-[20rem]  relative"
         onSubmit={handleSignup}

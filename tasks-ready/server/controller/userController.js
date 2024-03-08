@@ -53,13 +53,11 @@ const getUsers = async (req, res) => {
         .json({ passed: false, message: "No users  found" });
     }
 
-    res
-      .status(200)
-      .json({ passed: true, message: "Users found", users });
+    res.status(200).json({ passed: true, message: "Users found", users });
   } catch (error) {
     console.error(`Error occurred : ${error}`);
     res.status(500).json({ passed: false, message: "Failed" });
   }
 };
 
-module.exports = { postUser, getUser,getUsers };
+module.exports = { postUser, getUser, getUsers };
